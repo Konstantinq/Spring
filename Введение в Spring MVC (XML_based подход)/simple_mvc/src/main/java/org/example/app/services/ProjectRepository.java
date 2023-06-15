@@ -8,4 +8,6 @@ interface ProjectRepository<T> {
     public void store(T book);
 
     boolean removeToItemById(Integer bookIdToRemove);
+
+    void removeToItemByRegex(String regex);
 }

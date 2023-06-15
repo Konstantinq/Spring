@@ -1,7 +1,6 @@
 package org.example.app.services;
 
 
-import org.example.app.services.ProjectRepository;
 import org.example.web.dto.Book;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository
 public class BookRepository<T> implements ProjectRepository<Book>, ApplicationContextAware {
@@ -30,11 +30,23 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
     public boolean removeToItemById(Integer bookIdToRemove) {
         for(Book book: retreiveAll()){
             if (book.getId().equals(bookIdToRemove)){
-
                 return repo.remove(book);
             }
         }
         return false;
+    }
+
+    @Override
+    public void removeToItemByRegex(String regexWord) {
+        for(Book book: retreiveAll()){
+            if (book.getAuthor().equals(regexWord) || book.getTitle().equals(regexWord)){
+                 repo.remove(book);
+            } else if (regexWord.matches("\\d+")){
+                if (book.getSize().equals(Integer.parseInt(regexWord))){
+                    repo.remove(book);
+                }
+            }
+        }
     }
 
     @Override

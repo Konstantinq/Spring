@@ -34,16 +34,21 @@ public class BookShelfController {
 
     @PostMapping("/save")
     public String saveBook(Book book){
-        bookService.saveBook(book);
-
+        if(!book.getAuthor().isEmpty() || !book.getTitle().isEmpty() || book.getSize() != null) {
+            bookService.saveBook(book);
+        }
         return "redirect:shelf";
     }
 
     @PostMapping("/remove")
     public String removeBook(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove){
-        if(bookService.removeBookById(bookIdToRemove)){
-            return "redirect:/books/shelf";
-        }
-        return "book_shelf";
+        bookService.removeBookById(bookIdToRemove);
+        return "redirect:shelf";
+    }
+
+    @PostMapping("/removeByRegex")
+    public String removeByRegex(@RequestParam(value = "queryRegex") String queryRegex) {
+        bookService.removeByRegex(queryRegex);
+        return "redirect:shelf";
     }
 }
