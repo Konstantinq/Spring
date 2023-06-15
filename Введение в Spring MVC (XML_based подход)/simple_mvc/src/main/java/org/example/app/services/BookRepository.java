@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository
 public class BookRepository<T> implements ProjectRepository<Book>, ApplicationContextAware {
@@ -22,12 +21,13 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
     }
 
     public void store(Book book) {
-        book.setId(book.hashCode());
+        book.setId(context.getBean(IdProvider.class).provideId(book));
+       // book.setId(String.valueOf(book.hashCode()));
 
         repo.add(book);
     }
 
-    public boolean removeToItemById(Integer bookIdToRemove) {
+    public boolean removeToItemById(String bookIdToRemove) {
         for(Book book: retreiveAll()){
             if (book.getId().equals(bookIdToRemove)){
                 return repo.remove(book);
