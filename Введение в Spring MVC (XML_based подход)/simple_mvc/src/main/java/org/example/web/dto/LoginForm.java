@@ -1,18 +1,23 @@
 package org.example.web.dto;
 
 public class LoginForm {
-    private  String userName;
+    private String username;
     private String password;
+
+    public LoginForm(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public LoginForm() {
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -26,7 +31,7 @@ public class LoginForm {
     @Override
     public String toString() {
         return "LoginForm{" +
-                "userName='" + userName + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

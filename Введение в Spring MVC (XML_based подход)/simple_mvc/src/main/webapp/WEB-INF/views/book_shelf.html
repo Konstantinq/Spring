@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>My book shelf</title>
   <style>
-    #root-container{
+    #root_container{
       position: absolute;
       left: 50%;
       top: 50%;
@@ -32,7 +32,7 @@
 </head>
 <body>
 
-  <div id="root-container">
+  <div id="root_container">
    <form method="post" th:action="@{/books/save}" th:object="${book}">
      <table>
        <tr>
@@ -56,7 +56,7 @@
      <table>
        <tr>
          <td>
-           <input type="text" placeholder="id number" th:name="bookIDToRemove">
+           <input type="text" placeholder="id number" th:name="bookIdToRemove">
          </td>
          <td>
            <input type="submit" value="remove">

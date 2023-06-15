@@ -6,6 +6,7 @@ public class Book {
     private String title;
     private Integer size;
 
+
     public Integer getId() {
         return id;
     }
