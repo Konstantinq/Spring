@@ -17,10 +17,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
         appContext.setConfigLocation("classpath:app-config.xml");
         servletContext.addListener(new ContextLoaderListener(appContext));
 
-        //XmlWebApplicationContext webContext = new XmlWebApplicationContext();
-        //webContext.setConfigLocation("classpath:web-config.xml");
-        AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
-        webContext.register(WebContextConfig.class);
+        XmlWebApplicationContext webContext = new XmlWebApplicationContext();
+        webContext.setConfigLocation("classpath:web-config.xml");
+
+//        AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
+//        webContext.register(WebContextConfig.class);
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(webContext);
 

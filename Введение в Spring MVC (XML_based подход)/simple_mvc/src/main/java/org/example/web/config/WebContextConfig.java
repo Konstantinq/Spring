@@ -1,5 +1,6 @@
 package org.example.web.config;
 
+import org.example.app.services.IdProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,6 @@ public class WebContextConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/**").addResourceLocations("classpath:/images"); //<mvc:resources mapping="/**" location=classpath:images/>
-
     }
 
     @Bean
@@ -26,8 +26,7 @@ public class WebContextConfig implements WebMvcConfigurer {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setPrefix("/WEB-INF/view/");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
-
+        templateResolver.setTemplateMode("HTML");
         return templateResolver;
     }
 
@@ -45,6 +44,10 @@ public class WebContextConfig implements WebMvcConfigurer {
         viewResolver.setOrder(1);
 
         return viewResolver;
+    }
 
+    @Bean
+    public IdProvider idProvider(){
+        return new IdProvider();
     }
 }

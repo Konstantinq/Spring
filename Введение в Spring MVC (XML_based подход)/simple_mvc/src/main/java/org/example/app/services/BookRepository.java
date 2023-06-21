@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Repository
 public class BookRepository<T> implements ProjectRepository<Book>, ApplicationContextAware {
@@ -21,8 +22,7 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
     }
 
     public void store(Book book) {
-        book.setId(context.getBean(IdProvider.class).provideId(book));
-       // book.setId(String.valueOf(book.hashCode()));
+        book.setId(context.getBean(IdProvider.class).providerId(book));
 
         repo.add(book);
     }
@@ -42,7 +42,7 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
             if (book.getAuthor().equals(regexWord) || book.getTitle().equals(regexWord)){
                  repo.remove(book);
             } else if (regexWord.matches("\\d+")){
-                if (book.getSize().equals(Integer.parseInt(regexWord))){
+                if (book.getSize().equals( Integer.parseInt(regexWord))){
                     repo.remove(book);
                 }
             }
@@ -54,11 +54,11 @@ public class BookRepository<T> implements ProjectRepository<Book>, ApplicationCo
         this.context = applicationContext;
     }
 
-    private void defaultInit(){
-
+    public void defaultInit(){
+        System.out.println("default INIT in book service");
     }
 
-    private void defaultDestroy(){
-
+    public void defaultDestroy(){
+        System.out.println("default DESTROY in book service");
     }
 }

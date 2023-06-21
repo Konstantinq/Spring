@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping(value = "books")
 @Scope("session")
-//singleton, request, session,
 public class BookShelfController {
 
     private BookService bookService;
