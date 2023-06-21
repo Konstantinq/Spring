@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.app.config.AppContextConfig;
 import org.example.web.config.WebContextConfig;
+import org.h2.server.web.WebServlet;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -31,6 +32,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
+
+        ServletRegistration.Dynamic servletRegistration = servletContext.addServlet("h2-console", new WebServlet());
+        servletRegistration.setLoadOnStartup(2);
+        servletRegistration.addMapping("/console/*");
 
     }
 }
