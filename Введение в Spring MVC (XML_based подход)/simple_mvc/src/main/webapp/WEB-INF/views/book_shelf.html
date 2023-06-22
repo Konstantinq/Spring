@@ -41,26 +41,28 @@
          </td>
          <td>
            <input type="text" placeholder="book_title" th:field="*{title}">
+
          </td>
          <td>
            <input type="text" placeholder="size (pages)" th:field="*{size}">
-
          </td>
          <td>
            <input type="submit" placeholder="save">
          </td>
        </tr>
        <tr th:if="${#fields.hasErrors()}">
-         <td>
-           <p  th:if="${#fields.hasErrors()}">field value must be not empty</p>
+         <td th:if="${#fields.hasErrors('author')}">
+           <p  >field value must be not empty</p>
+         </td>
+         <td th:if="${#fields.hasErrors('title')}">
+           <p >field value the title should not be empty</p>
+         </td>
+         <td th:if="${#fields.hasErrors('size')}">
+           <p >field value must be digit and less than 4 signs</p>
          </td>
          <td>
-           <p th:if="${#fields.hasErrors()}">field value the title should not be empty</p>
+
          </td>
-         <td>
-           <p th:if="${#fields.hasErrors()}">field value must be digit and less than 4 signs</p>
-         </td>
-         <td></td>
        </tr>
      </table>
    </form>
@@ -74,7 +76,7 @@
          <td>
            <input type="submit" value="remove">
          </td>
-         <td th:if="${#fields.hasErrors()}">
+         <td th:if="${#fields.hasErrors('id')}">
            <p>Wrong id or not found</p>
          </td>
        </tr>
