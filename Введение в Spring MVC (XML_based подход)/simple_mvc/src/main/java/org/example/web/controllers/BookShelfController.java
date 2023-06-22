@@ -100,6 +100,6 @@ public class BookShelfController {
             return "redirect:/errors/500";
         }
 
-        return "redirect:books/shelf";
+        return "redirect:shelf";
     }
 }
