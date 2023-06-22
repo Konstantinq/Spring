@@ -12,6 +12,8 @@ public class Book {
     private String author;
     @NotBlank
     private String title;
+
+    @NotNull
     @Digits(integer = 4, fraction = 0)
     private Integer size;
 
