@@ -35,12 +35,14 @@
   <div id="root_container">
    <form method="post" th:action="@{/books/save}" th:object="${book}">
      <table>
+       <tbody>
        <tr>
          <td>
            <input type="text" placeholder="author" th:field="*{author}">
          </td>
          <td>
            <input type="text" placeholder="book_title" th:field="*{title}">
+
          </td>
          <td>
            <input type="text" placeholder="size (pages)" th:field="*{size}">
@@ -49,17 +51,34 @@
            <input type="submit" placeholder="save">
          </td>
        </tr>
+       <tr th:if="${#fields.hasErrors()}">
+         <td>
+           <p th:if="${#fields.hasErrors('author')}">field value must be not empty</p>
+         </td>
+         <td >
+           <p th:if="${#fields.hasErrors('title')}">field value the title should not be empty</p>
+         </td>
+         <td >
+           <p th:if="${#fields.hasErrors('size')}">field value must be digit and less than 4 signs</p>
+         </td>
+         <td>
+         </td>
+       </tr>
+       </tbody>
      </table>
    </form>
 
-   <form method="post" th:action="@{/books/remove}">
+   <form method="post" th:action="@{/books/remove}" th:object="${bookIdToRemove}">
      <table>
        <tr>
          <td>
-           <input type="text" placeholder="id number" th:name="bookIdToRemove">
+           <input type="text" placeholder="id number" th:field="*{id}">
          </td>
          <td>
            <input type="submit" value="remove">
+         </td>
+         <td th:if="${#fields.hasErrors('id')}">
+           <p>Wrong id or not found</p>
          </td>
        </tr>
      </table>
@@ -73,6 +92,19 @@
           </td>
           <td>
             <input type="submit" value="remove by regex"></input>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <form method="post" th:action="@{/books/uploadFile}" enctype="multipart/form-data">
+      <table>
+        <tr>
+          <td>
+            <input type="file" name="file">
+          </td>
+          <td>
+            <input type="submit" value="Upload">
           </td>
         </tr>
       </table>

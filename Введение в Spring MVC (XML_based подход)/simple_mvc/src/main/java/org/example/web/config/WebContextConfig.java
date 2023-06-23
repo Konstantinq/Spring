@@ -1,8 +1,10 @@
 package org.example.web.config;
 
+import org.example.app.services.IdProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,16 +20,14 @@ public class WebContextConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/**").addResourceLocations("classpath:/images"); //<mvc:resources mapping="/**" location=classpath:images/>
-
     }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("/WEB-INF/view/");
+        templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
-
         return templateResolver;
     }
 
@@ -45,6 +45,19 @@ public class WebContextConfig implements WebMvcConfigurer {
         viewResolver.setOrder(1);
 
         return viewResolver;
-
     }
+
+    @Bean
+    public IdProvider idProvider(){
+        return new IdProvider();
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(5000000);
+        multipartResolver.setDefaultEncoding("UTF-8");
+        return multipartResolver;
+    }
+
 }

@@ -1,0 +1,1 @@
+INSERT INTO books(author, title, size) values ('Dostoevskyi', 'Idiot', 350);
